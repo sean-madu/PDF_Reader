@@ -1,0 +1,18 @@
+.container {
+  position: absolute;
+}
+
+.page {
+  position: absolute;
+  z-index: 0;
+}
+
+#pdfDiv {
+  width: 75%;
+  margin: auto;
+}
+
+.file-frame {
+  position: absolute;
+  z-index: 1;
+}
