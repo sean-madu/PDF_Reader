@@ -1,3 +1,6 @@
+body {
+  background-color: gray;
+}
 .container {
   position: absolute;
 }
@@ -8,7 +11,7 @@
 }
 
 #pdfDiv {
-  width: 75%;
+  width: 60%;
   margin: auto;
 }
 
