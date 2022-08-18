@@ -1,6 +1,7 @@
 import * as pdfjs from "pdfjs-dist/webpack";
 import * as pdfJsDocument from "pdfjs-dist/lib/core/document";
 import { Stream } from "pdfjs-dist/lib/core/stream";
+import { TextLayerBuilder } from "pdfjs-dist/lib/web/text_layer_builder";
 
 //Changes pdfjs by removing sdtats in xref.js and changed xrefstats in parser.js
 
@@ -74,6 +75,7 @@ function renderV3DFiles(pageNum, PDFDocument, div) {
 }
 
 function renderPages(pdf, pages, coreDocument) {
+  var page_num = 1;
   let pdfDiv = document.createElement("div");
   pdfDiv.id = "pdfDiv";
   document.body.appendChild(pdfDiv);
@@ -85,6 +87,9 @@ function renderPages(pdf, pages, coreDocument) {
       containerDiv.className = "container";
       containerDiv.id = `Page ${i} Container`;
 
+      let textLayerDiv = document.createElement("div");
+      containerDiv.appendChild(textLayerDiv);
+
       let mainCanvas = document.createElement("canvas");
       mainCanvas.id = `Page ${i} Canvas`;
       mainCanvas.className = "page";
@@ -94,6 +99,13 @@ function renderPages(pdf, pages, coreDocument) {
       let viewport = page.getViewport({ scale: scale });
       mainCanvas.height = viewport.height;
       mainCanvas.width = viewport.width;
+
+      textLayerDiv.className = "text-layer";
+
+      textLayerDiv.style.height = viewport.height + "px";
+      textLayerDiv.style.width = viewport.width + "px";
+      textLayerDiv.style.top = mainCanvas.offsetTop;
+      textLayerDiv.style.left = mainCanvas.offsetLeft;
 
       containerDiv.style.height = mainCanvas.height.toString() + "px";
       containerDiv.style.width = mainCanvas.width.toString() + "px";
@@ -109,6 +121,21 @@ function renderPages(pdf, pages, coreDocument) {
       renderTask.promise.then(function () {
         console.log("Page rendered");
         renderV3DFiles(i, coreDocument, containerDiv);
+      });
+      page.getTextContent().then(function (textContent) {
+        let textLayer = new TextLayerBuilder({
+          textLayerDiv: textLayerDiv,
+          pageIndex: i - 1,
+          viewport: viewport,
+          eventBus: {
+            dispatch: function dispatch(a, b) {
+              console.log(a, b);
+            },
+          },
+        });
+
+        textLayer.setTextContent(textContent);
+        textLayer.render();
       });
     });
   }

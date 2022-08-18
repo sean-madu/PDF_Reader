@@ -11,7 +11,6 @@ let title = document.createElement("title");
 title.text = file;
 document.head.appendChild(title);
 
-//http://127.0.0.1:5502/dist/reader.html?filename=http://127.0.0.1:5500/tests/test.pdf
 fetch(filename)
   .then((response) => response.arrayBuffer())
   .then(
