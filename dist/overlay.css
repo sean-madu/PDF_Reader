@@ -16,18 +16,24 @@ body {
   margin: auto;
 }
 
-.text-layer {
-  z-index: 1;
-  position: absolute;
-}
-
 .file-frame {
   position: absolute;
   z-index: 2;
+  border: none;
+  margin: none;
+  padding: none;
 }
 
 .text-layer {
+  z-index: 1;
   position: absolute;
+  overflow: hidden;
+  opacity: 0.2;
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+  forced-color-adjust: none;
 }
 
 .text-layer span,
@@ -37,4 +43,54 @@ body {
   white-space: pre;
   cursor: text;
   transform-origin: 0% 0%;
+}
+
+/* Only necessary in Google Chrome, see issue 14205, and most unfortunately
+ * the problem doesn't show up in "text" reference tests. */
+.text-layer span.markedContent {
+  top: 0;
+  height: 0;
+}
+
+.text-layer .highlight {
+  margin: -1px;
+  padding: 1px;
+  background-color: rgba(180, 0, 170, 1);
+  border-radius: 4px;
+}
+
+.text-layer .highlight.appended {
+  position: initial;
+}
+
+.text-layer .highlight.begin {
+  border-radius: 4px 0 0 4px;
+}
+
+.text-layer .highlight.end {
+  border-radius: 0 4px 4px 0;
+}
+
+.text-layer .highlight.middle {
+  border-radius: 0;
+}
+
+.text-layer .highlight.selected {
+  background-color: rgba(0, 100, 0, 1);
+}
+
+.text-layer ::-moz-selection {
+  background: rgba(0, 0, 255, 1);
+}
+
+.text-layer ::selection {
+  background: rgba(0, 0, 255, 1);
+}
+
+/* Avoids https://github.com/mozilla/pdf.js/issues/13840 in Chrome */
+.text-layer br::-moz-selection {
+  background: transparent;
+}
+.text-layer br::selection {
+  background: transparent;
 }

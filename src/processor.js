@@ -69,13 +69,13 @@ function renderV3DFiles(pageNum, PDFDocument, div) {
     doc.body.appendChild(asyCanvas);
     doc.body.appendChild(v3dScript);
     doc.body.appendChild(script);
+    doc.body.style.overflow = "hidden";
 
     iframe.srcdoc = doc.documentElement.outerHTML;
   }
 }
 
 function renderPages(pdf, pages, coreDocument) {
-  var page_num = 1;
   let pdfDiv = document.createElement("div");
   pdfDiv.id = "pdfDiv";
   document.body.appendChild(pdfDiv);
