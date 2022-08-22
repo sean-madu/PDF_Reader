@@ -8,6 +8,13 @@ import { TextLayerBuilder } from "pdfjs-dist/lib/web/text_layer_builder";
 let v3dFile;
 let scale = 1.5;
 
+export function setScale(newScale) {
+  scale = newScale;
+}
+
+export function getScale() {
+  return scale;
+}
 function renderV3DFiles(pageNum, PDFDocument, div) {
   let xrefPagesDict = PDFDocument.xref.fetch(PDFDocument.xref.root._map.Pages);
   let page = PDFDocument.xref.fetch(xrefPagesDict._map.Kids[pageNum - 1]);
@@ -64,6 +71,7 @@ function renderV3DFiles(pageNum, PDFDocument, div) {
     iframe.width = (annotation._map.Rect[2] - annotation._map.Rect[0]) * scale;
     iframe.style.top = top.toString() + "px";
     iframe.style.right = right.toString() + "px";
+    iframe.textContent = "Loading or Browser does not support iframes";
     div.appendChild(iframe);
 
     doc.body.appendChild(asyCanvas);
