@@ -1,15 +1,7 @@
 import * as process from "./processor.js";
 
 let pdfContent;
-let navbar = document.getElementById("navbar");
-let sticky = navbar.offsetTop;
-window.onscroll = function () {
-  if (window.scrollY >= sticky) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
-  }
-};
+
 let currentURL = window.location.href;
 let currentstr = currentURL.toString();
 

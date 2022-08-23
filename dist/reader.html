@@ -6,7 +6,7 @@
     <script defer type="module" src="reader.js"></script>
   </head>
   <body>
-    <div id="navbar">
+    <div id="navbar" class="sticky">
       <div id="left-navbar">
         <a id="pdf-name"> PDF NAME</a>
       </div>
@@ -15,10 +15,12 @@
         <a id="pageScale"> 150% </a>
         <button id="zoom-in">+</button>
       </div>
-      <!-- Save is not yet supported
       <div id="right-navbar">
-        <button id="save">SAVE</button>
+        <div id="save">
+          <a href="http://127.0.0.1:5501/pdfs/test.pdf" download> SAVE </a>
+          <button>SAVE</button>
+        </div>
       </div>
-    --></div>
+    </div>
   </body>
 </html>
