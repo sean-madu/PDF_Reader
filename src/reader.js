@@ -13,7 +13,7 @@ navbarName.textContent = title.text = file;
 
 document.head.appendChild(title);
 
-fetch(filename)
+fetch(filename, { headers: { "Access-Control-Allow-Origin": "*" } })
   .then((response) => response.arrayBuffer())
   .then(
     function (pdfBuffer) {
