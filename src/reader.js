@@ -4,13 +4,13 @@ let pdfContent;
 
 let currentURL = window.location.href;
 let currentstr = currentURL.toString();
-
+let defaultLink = document.getElementById("default-view-link");
 let filename = decodeURIComponent(currentstr.slice(currentstr.search("=") + 1));
 let file = filename.substring(filename.lastIndexOf("/") + 1);
 let title = document.createElement("title");
 let navbarName = document.getElementById("pdf-name");
 navbarName.textContent = title.text = file;
-
+defaultLink.href = filename;
 document.head.appendChild(title);
 
 fetch(filename, { headers: { "Access-Control-Allow-Origin": "*" } })
