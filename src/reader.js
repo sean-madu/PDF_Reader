@@ -13,12 +13,7 @@ navbarName.textContent = title.text = file;
 defaultLink.href = filename;
 document.head.appendChild(title);
 
-fetch(filename, {
-  mode: "no-cors",
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  },
-})
+fetch(filename)
   .then((response) => response.arrayBuffer())
   .then(
     function (pdfBuffer) {
